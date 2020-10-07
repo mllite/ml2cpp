@@ -8,6 +8,6 @@ The goal is to implement a simple deployment system based on the most hardware-f
 
 The C++ code contains everything needed to compute the predicted values of the model, no external library is needed, and can be compiled for any target hardware platform using any starndard C++ compiler on the market.
 
-The automatically generated code is plain STL C++-17, designed to  maintain a strong semantic mapping with the model and allows auditing , debugging and reporting. 
+The automatically generated code is plain STL C++-17, designed to  maintain a strong semantic mapping with the model and allows auditing , debugging, benchmarking and reporting. 
 
 To summarize, ml2cpp is for a CPU what sklearn2sql is for a database and supports the exact same set of machine learning models : scikit-learn, XGboost , LightGBM, Caret, Keras and PyTorch.
