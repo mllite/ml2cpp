@@ -1,0 +1,43 @@
+MODEL1 := tests/small_devices_experiments/model.cpp
+
+# Kendryte k210 is a riscv cpu
+K210_ARCH := k210
+
+K210_CXX := riscv64-linux-gnu-g++-10
+K210_STRIP := riscv64-linux-gnu-strip
+
+K210_CFLAGS := -std=c++17 -Wall --param=max-vartrack-size=6000000000  -fvar-tracking-assignments -ffunction-sections -fdata-sections -Wl,--gc-sections,-Map=final_k210.map -mcmodel=medany -march=rv64imafdc  -static -fno-exceptions -fno-rtti
+
+$(K210_ARCH)_model1_O0:
+	$(K210_CXX) $(K210_CFLAGS) -O0 -o bin/$(K210_ARCH)_model1_O0 $(MODEL1)
+	cp  bin/$(K210_ARCH)_model1_O0  bin/$(K210_ARCH)_model1_O0_stripped
+	$(K210_STRIP) bin/$(K210_ARCH)_model1_O0_stripped
+
+$(K210_ARCH)_model1_O1:
+	$(K210_CXX) $(K210_CFLAGS) -O1 -o bin/$(K210_ARCH)_model1_O1 $(MODEL1)
+	cp  bin/$(K210_ARCH)_model1_O1  bin/$(K210_ARCH)_model1_O1_stripped
+	$(K210_STRIP) bin/$(K210_ARCH)_model1_O1_stripped
+
+$(K210_ARCH)_model1_O2:
+	$(K210_CXX) $(K210_CFLAGS) -O2 -o bin/$(K210_ARCH)_model1_O2 $(MODEL1)
+	cp  bin/$(K210_ARCH)_model1_O2  bin/$(K210_ARCH)_model1_O2_stripped
+	$(K210_STRIP) bin/$(K210_ARCH)_model1_O2_stripped
+
+$(K210_ARCH)_model1_O3:
+	$(K210_CXX)  $(K210_CFLAGS) -O3 -o bin/$(K210_ARCH)_model1_O3 $(MODEL1)
+	cp  bin/$(K210_ARCH)_model1_O3  bin/$(K210_ARCH)_model1_O3_stripped
+	$(K210_STRIP) bin/$(K210_ARCH)_model1_O3_stripped
+
+$(K210_ARCH)_model1_Os:
+	$(K210_CXX) -Os -o bin/$(K210_ARCH)_model1_Os $(MODEL1) $(K210_CFLAGS) 
+	cp  bin/$(K210_ARCH)_model1_Os  bin/$(K210_ARCH)_model1_Os_stripped
+	$(K210_STRIP) bin/$(K210_ARCH)_model1_Os_stripped
+
+$(K210_ARCH)_model1_Os_debug:
+	$(K210_CXX)  $(K210_CFLAGS) -g -Os -o bin/$(K210_ARCH)_model1_Os_debug $(MODEL1)
+	cp  bin/$(K210_ARCH)_model1_Os_debug  bin/$(K210_ARCH)_model1_Os_debug_stripped
+	$(K210_STRIP) bin/$(K210_ARCH)_model1_Os_debug_stripped
+
+$(K210_ARCH)_model1 : $(K210_ARCH)_model1_O0 $(K210_ARCH)_model1_O1 $(K210_ARCH)_model1_O2 $(K210_ARCH)_model1_O3 $(K210_ARCH)_model1_Os $(K210_ARCH)_model1_Os_debug
+	@echo $(K210_ARCH) done!
+

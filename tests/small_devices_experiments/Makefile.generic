@@ -1,0 +1,37 @@
+
+
+MODEL1 := tests/small_devices_experiments/model.cpp
+
+$(ARCH)_model1_O0:
+	$(CXX) $(ML_CFLAGS) -O0 -o bin/$(ARCH)_model1_O0 $(MODEL1)
+	cp  bin/$(ARCH)_model1_O0  bin/$(ARCH)_model1_O0_stripped
+	$(STRIP) bin/$(ARCH)_model1_O0_stripped
+
+$(ARCH)_model1_O1:
+	$(CXX) $(ML_CFLAGS) -O1 -o bin/$(ARCH)_model1_O1 $(MODEL1)
+	cp  bin/$(ARCH)_model1_O1  bin/$(ARCH)_model1_O1_stripped
+	$(STRIP) bin/$(ARCH)_model1_O1_stripped
+
+$(ARCH)_model1_O2:
+	$(CXX) $(ML_CFLAGS) -O2 -o bin/$(ARCH)_model1_O2 $(MODEL1)
+	cp  bin/$(ARCH)_model1_O2  bin/$(ARCH)_model1_O2_stripped
+	$(STRIP) bin/$(ARCH)_model1_O2_stripped
+
+$(ARCH)_model1_O3:
+	$(CXX)  $(ML_CFLAGS) -O3 -o bin/$(ARCH)_model1_O3 $(MODEL1)
+	cp  bin/$(ARCH)_model1_O3  bin/$(ARCH)_model1_O3_stripped
+	$(STRIP) bin/$(ARCH)_model1_O3_stripped
+
+$(ARCH)_model1_Os:
+	$(CXX) -Os -o bin/$(ARCH)_model1_Os $(MODEL1) $(ML_CFLAGS) 
+	cp  bin/$(ARCH)_model1_Os  bin/$(ARCH)_model1_Os_stripped
+	$(STRIP) bin/$(ARCH)_model1_Os_stripped
+
+$(ARCH)_model1_Os_debug:
+	$(CXX)  $(ML_CFLAGS) -g -Os -o bin/$(ARCH)_model1_Os_debug $(MODEL1)
+	cp  bin/$(ARCH)_model1_Os_debug  bin/$(ARCH)_model1_Os_debug_stripped
+	$(STRIP) bin/$(ARCH)_model1_Os_debug_stripped
+
+$(ARCH)_model1 : $(ARCH)_model1_O0 $(ARCH)_model1_O1 $(ARCH)_model1_O2 $(ARCH)_model1_O3 $(ARCH)_model1_Os $(ARCH)_model1_Os_debug
+	@echo $(ARCH) done!
+

@@ -1,0 +1,43 @@
+MODEL1 := tests/small_devices_experiments/model.cpp
+
+ESP32_ARCH := esp32
+
+# esp32 is an xtensa dual core
+ESP32_CXX := xtensa-esp32-elf-g++
+ESP32_STRIP := xtensa-esp32-elf-strip
+
+ESP32_CFLAGS := -std=c++17 -Wall -specs=nosys.specs --param=max-vartrack-size=6000000000  -fvar-tracking-assignments -ffunction-sections -fdata-sections -Wl,--gc-sections,-static -fno-exceptions -fno-rtti -D_GLIBCXX_GCC_GTHR_POSIX_H -D__SINGLE_THREAD__
+
+$(ESP32_ARCH)_model1_O0:
+	$(ESP32_CXX) $(ESP32_CFLAGS) -O0 -o bin/$(ESP32_ARCH)_model1_O0 $(MODEL1)
+	cp  bin/$(ESP32_ARCH)_model1_O0  bin/$(ESP32_ARCH)_model1_O0_stripped
+	$(ESP32_STRIP) bin/$(ESP32_ARCH)_model1_O0_stripped
+
+$(ESP32_ARCH)_model1_O1:
+	$(ESP32_CXX) $(ESP32_CFLAGS) -O1 -o bin/$(ESP32_ARCH)_model1_O1 $(MODEL1)
+	cp  bin/$(ESP32_ARCH)_model1_O1  bin/$(ESP32_ARCH)_model1_O1_stripped
+	$(ESP32_STRIP) bin/$(ESP32_ARCH)_model1_O1_stripped
+
+$(ESP32_ARCH)_model1_O2:
+	$(ESP32_CXX) $(ESP32_CFLAGS) -O2 -o bin/$(ESP32_ARCH)_model1_O2 $(MODEL1)
+	cp  bin/$(ESP32_ARCH)_model1_O2  bin/$(ESP32_ARCH)_model1_O2_stripped
+	$(ESP32_STRIP) bin/$(ESP32_ARCH)_model1_O2_stripped
+
+$(ESP32_ARCH)_model1_O3:
+	$(ESP32_CXX)  $(ESP32_CFLAGS) -O3 -o bin/$(ESP32_ARCH)_model1_O3 $(MODEL1)
+	cp  bin/$(ESP32_ARCH)_model1_O3  bin/$(ESP32_ARCH)_model1_O3_stripped
+	$(ESP32_STRIP) bin/$(ESP32_ARCH)_model1_O3_stripped
+
+$(ESP32_ARCH)_model1_Os:
+	$(ESP32_CXX) -Os -o bin/$(ESP32_ARCH)_model1_Os $(MODEL1) $(ESP32_CFLAGS) 
+	cp  bin/$(ESP32_ARCH)_model1_Os  bin/$(ESP32_ARCH)_model1_Os_stripped
+	$(ESP32_STRIP) bin/$(ESP32_ARCH)_model1_Os_stripped
+
+$(ESP32_ARCH)_model1_Os_debug:
+	$(ESP32_CXX)  $(ESP32_CFLAGS) -g -Os -o bin/$(ESP32_ARCH)_model1_Os_debug $(MODEL1)
+	cp  bin/$(ESP32_ARCH)_model1_Os_debug  bin/$(ESP32_ARCH)_model1_Os_debug_stripped
+	$(ESP32_STRIP) bin/$(ESP32_ARCH)_model1_Os_debug_stripped
+
+$(ESP32_ARCH)_model1 : $(ESP32_ARCH)_model1_O0 $(ESP32_ARCH)_model1_O1 $(ESP32_ARCH)_model1_O2 $(ESP32_ARCH)_model1_O3 $(ESP32_ARCH)_model1_Os $(ESP32_ARCH)_model1_Os_debug
+	@echo $(ESP32_ARCH) done!
+

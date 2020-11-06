@@ -1,0 +1,43 @@
+MODEL1 := tests/small_devices_experiments/model.cpp
+
+# stm32 is basically an ARM cortex-M3
+override STM32_ARCH := stm32
+
+STM32_CXX := arm-none-eabi-g++
+STM32_STRIP := arm-none-eabi-strip
+
+STM32_CFLAGS := -std=c++17 -Wall -mlittle-endian -mthumb -mthumb-interwork -mcpu=cortex-m3 -specs=nosys.specs --param=max-vartrack-size=6000000000  -fvar-tracking-assignments -ffunction-sections -fdata-sections -Wl,--gc-sections -static -fno-exceptions -fno-rtti
+
+$(STM32_ARCH)_model1_O0:
+	$(STM32_CXX) $(STM32_CFLAGS) -O0 -o bin/$(STM32_ARCH)_model1_O0 $(MODEL1)
+	cp  bin/$(STM32_ARCH)_model1_O0  bin/$(STM32_ARCH)_model1_O0_stripped
+	$(STM32_STRIP) bin/$(STM32_ARCH)_model1_O0_stripped
+
+$(STM32_ARCH)_model1_O1:
+	$(STM32_CXX) $(STM32_CFLAGS) -O1 -o bin/$(STM32_ARCH)_model1_O1 $(MODEL1)
+	cp  bin/$(STM32_ARCH)_model1_O1  bin/$(STM32_ARCH)_model1_O1_stripped
+	$(STM32_STRIP) bin/$(STM32_ARCH)_model1_O1_stripped
+
+$(STM32_ARCH)_model1_O2:
+	$(STM32_CXX) $(STM32_CFLAGS) -O2 -o bin/$(STM32_ARCH)_model1_O2 $(MODEL1)
+	cp  bin/$(STM32_ARCH)_model1_O2  bin/$(STM32_ARCH)_model1_O2_stripped
+	$(STM32_STRIP) bin/$(STM32_ARCH)_model1_O2_stripped
+
+$(STM32_ARCH)_model1_O3:
+	$(STM32_CXX)  $(STM32_CFLAGS) -O3 -o bin/$(STM32_ARCH)_model1_O3 $(MODEL1)
+	cp  bin/$(STM32_ARCH)_model1_O3  bin/$(STM32_ARCH)_model1_O3_stripped
+	$(STM32_STRIP) bin/$(STM32_ARCH)_model1_O3_stripped
+
+$(STM32_ARCH)_model1_Os:
+	$(STM32_CXX) -Os -o bin/$(STM32_ARCH)_model1_Os $(MODEL1) $(STM32_CFLAGS) 
+	cp  bin/$(STM32_ARCH)_model1_Os  bin/$(STM32_ARCH)_model1_Os_stripped
+	$(STM32_STRIP) bin/$(STM32_ARCH)_model1_Os_stripped
+
+$(STM32_ARCH)_model1_Os_debug:
+	$(STM32_CXX)  $(STM32_CFLAGS) -g -Os -o bin/$(STM32_ARCH)_model1_Os_debug $(MODEL1)
+	cp  bin/$(STM32_ARCH)_model1_Os_debug  bin/$(STM32_ARCH)_model1_Os_debug_stripped
+	$(STM32_STRIP) bin/$(STM32_ARCH)_model1_Os_debug_stripped
+
+$(STM32_ARCH)_model1 : $(STM32_ARCH)_model1_O0 $(STM32_ARCH)_model1_O1 $(STM32_ARCH)_model1_O2 $(STM32_ARCH)_model1_O3 $(STM32_ARCH)_model1_Os $(STM32_ARCH)_model1_Os_debug
+	@echo $(STM32_ARCH) done!
+
