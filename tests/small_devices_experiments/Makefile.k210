@@ -6,7 +6,7 @@ K210_ARCH := k210
 K210_CXX := riscv64-linux-gnu-g++-10
 K210_STRIP := riscv64-linux-gnu-strip
 
-K210_CFLAGS := -std=c++17 -Wall --param=max-vartrack-size=6000000000  -fvar-tracking-assignments -ffunction-sections -fdata-sections -Wl,--gc-sections,-Map=final_k210.map -mcmodel=medany -march=rv64imafdc  -static -fno-exceptions -fno-rtti
+K210_CFLAGS := -std=c++17 -Wall --param=max-vartrack-size=6000000000  -fvar-tracking-assignments -ffunction-sections -fdata-sections -Wl,--gc-sections -mcmodel=medany -march=rv64imafdc  -static -fno-exceptions -fno-rtti
 
 $(K210_ARCH)_model1_O0:
 	$(K210_CXX) $(K210_CFLAGS) -O0 -o bin/$(K210_ARCH)_model1_O0 $(MODEL1)
