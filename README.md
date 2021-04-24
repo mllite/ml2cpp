@@ -10,6 +10,8 @@ The C++ code contains everything needed to compute the predicted values of the m
 
 The automatically generated code is plain STL C++-17, designed to  maintain a strong semantic mapping with the model and allows auditing , debugging, benchmarking and reporting. 
 
+The generated code does/will not rely on any kind of external library (not use BLAS or tensorflow or ...) and will not need compiler specific flags. It is generated such that any C++ code can integrate it without specific change (the model code is a namespace).
+
 To summarize, ml2cpp is for a CPU what sklearn2sql is for a database and supports the exact same set of machine learning models : scikit-learn, XGboost , LightGBM, Caret, Keras and PyTorch.
 
 ## Useful links
