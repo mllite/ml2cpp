@@ -1,6 +1,12 @@
-# ml2cpp
-Machine Learning Models Deployment using C++ Code Generation
+# ml2cpp : Machine Learning Models Deployment using C++ Code Generation
 
+## Demo
+
+Some jupyter notebooks are available here for demoing the most used scikit-learn, XGBoost , LightGBM, PyTorch and Keras models.
+
+https://github.com/antoinecarme/ml2cpp/tree/master/doc
+
+## Description
 
 This is an attempt to design a software-based deployment system for all kinds of models relying on the existing abstract layers of the sklearn2sql framework. 
 
