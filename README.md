@@ -2,7 +2,7 @@
 
 ## Demo
 
-Some jupyter notebooks are available here for demoing the most used scikit-learn, XGBoost , LightGBM, PyTorch and Keras models.
+Some jupyter notebooks are available here for demoing the most used scikit-learn, XGBoost , LightGBM, PyTorch and Keras Python models as well as Caret R models.
 
 https://github.com/antoinecarme/ml2cpp/tree/master/doc
 
