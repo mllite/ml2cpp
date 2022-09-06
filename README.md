@@ -6,6 +6,8 @@ Some jupyter notebooks are available here for demoing the most used scikit-learn
 
 https://github.com/antoinecarme/ml2cpp/tree/master/doc
 
+A final presentation is available here (pdf slides) : https://github.com/antoinecarme/presentations_slides/blob/main/ml2cpp_presentation_2022-08.pdf
+
 ## Description
 
 This is an attempt to design a software-based deployment system for all kinds of models relying on the existing abstract layers of the sklearn2sql framework. 
